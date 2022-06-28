@@ -1,0 +1,31 @@
+.username {
+  margin-left: 645px;
+  margin-top: 10px;
+}
+
+.profile {
+  display: flex;
+}
+.photouser {
+  width: 150px;
+}
+.seemore {
+  margin-left: 150px;
+}
+.userWatchlist {
+  margin-left: 150px;
+  font-size: 30px;
+}
+.topbarprofile {
+  margin-left: 590px;
+}
+.favheader {
+  margin-left: 50px;
+}
+.profileheader {
+  margin-left: 500px;
+}
+
+.watchlist {
+  margin-left: 100px;
+}

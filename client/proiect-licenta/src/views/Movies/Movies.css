@@ -1,0 +1,16 @@
+.tag2 {
+  background: #fafad2;
+  border-radius: 5px;
+  color: black;
+  padding: 3px 8px;
+  font-size: 13px;
+  margin-left: 10px;
+  cursor: pointer;
+  width: 1000px;
+  margin-top: 30px;
+}
+.filter {
+  margin-left: 200px;
+  width: 810px;
+  word-wrap: break-word;
+}
