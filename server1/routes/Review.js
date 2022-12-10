@@ -1,41 +1,11 @@
 const express = require('express');
+const { saveReview, getReviews, getReviewsOfUser } = require('../controllers/Review');
 const router = express.Router();
-const { Review } = require('../models/Review');
-const { auth } = require('../middleware/auth');
 
-router.post('/saveReview', (req, res) => {
-  const review = new Review(req.body);
+router.post('/saveReview', saveReview);
 
-  review.save((err, review) => {
-    console.log(err);
-    if (err) return res.json({ success: false, err });
+router.post('/getReviews', getReviews);
 
-    Review.find({ _id: review._id })
-      .populate('writer')
-      .exec((err, result) => {
-        if (err) return res.json({ success: false, err });
-        return res.status(200).json({ success: true, result });
-      });
-  });
-});
-
-router.post('/getReviews', (req, res) => {
-  Review.find({ postId: req.body.movieId })
-    .populate('writer')
-    .exec((err, reviews) => {
-      if (err) return res.status(400).send(err);
-      res.status(200).json({ success: true, reviews });
-    });
-});
-
-router.post('/getReviewsOfUser', (req, res) => {
-  console.log(req.body);
-  Review.find({ writer: req.body.userFrom })
-    .populate('writer')
-    .exec((err, reviews) => {
-      if (err) return res.status(400).send(err);
-      res.status(200).json({ success: true, reviews });
-    });
-});
+router.post('/getReviewsOfUser', getReviewsOfUser);
 
 module.exports = router;

@@ -1,12 +1,14 @@
 const User = require('../models/User');
-
+const { ObjectId } = require('mongodb'); // or ObjectID 
 exports.register = async (req, res, next) => {
   const { username, email, password } = req.body;
+  const number = Math.floor(Math.random() * 99999);
   try {
     const user = await User.create({
       username,
       email,
       password,
+      avatar: `https://robohash.org/stefan-${number}`
     });
     sendToken(user, 201, res);
   } catch (error) {
@@ -27,6 +29,21 @@ exports.getIdFromUsername = async (req, res, next) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({ success: true, result });
   });
+};
+
+exports.changeAvatar = async (req, res, next) => {
+  const number = Math.floor(Math.random() * 99999);
+
+  User.findByIdAndUpdate({ _id: req.body.userFrom }, { "avatar": `https://robohash.org/stefan-${number}` }, function (err, result) {
+
+    if (err) {
+      res.send(err)
+    }
+    else {
+      res.send(result)
+    }
+
+  })
 };
 
 exports.login = async (req, res, next) => {
