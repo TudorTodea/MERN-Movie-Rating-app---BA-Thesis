@@ -1,17 +1,18 @@
 import axios from 'axios';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import SearchGrid from '../../components/Search/SearchGrid';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config/Config';
 import './Profile.css';
+
 function Profile() {
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const [watchlist, setWatchlist] = useState([]);
   const [Favorites, setFavorites] = useState([]);
-  const [username, setUsername] = useState('');
+  const [update, setUpdate] = useState(false);
+  const [user, setUser] = useState(null);
   const { id } = useParams();
-
   let variable = { userFrom: id };
 
   useEffect(() => {
@@ -23,7 +24,6 @@ function Profile() {
   const fetchReviews = () => {
     instance.post('/api/review/getReviewsOfUser', variable).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
       } else {
         alert('Failed to get reviews');
       }
@@ -32,8 +32,8 @@ function Profile() {
   const fetchUsername = () => {
     instance.post('/api/auth/getUsername', variable).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
-        setUsername(response.data.result.username);
+
+        setUser(response.data.result);
       } else {
         alert('Failed to get username');
       }
@@ -44,7 +44,6 @@ function Profile() {
       .post('/api/favorite/getFavoredMovie', variable)
       .then((response) => {
         if (response.data.success) {
-          console.log(response.data);
           setFavorites(response.data.favorites);
         } else {
           alert('Failed to get favored movie');
@@ -57,39 +56,50 @@ function Profile() {
       .then((response) => {
         if (response.data.success) {
           setWatchlist(response.data.watchlisted);
-          console.log(response.data.watchlisted);
         } else {
           alert('Failed to get Watchlist');
         }
       });
   };
+  const handlerAvatarChange=(e)=>{
+    e.preventDefault();
+    instance
+    .post('/api/auth/changeAvatar', variable)
+    .then((response) => {
+    setUpdate(!update)
+     
+    });
+  }
   return (
     <div className="wrapper">
       <div className="profileheader">
         {id === localStorage.getItem('userid') ? (
-          <a href={`/Watchlist/${id}`}>Manage Watchlist</a>
+          <a href={`/edit/watchlist/${id}`}>Manage Watchlist</a>
         ) : null}{' '}
         {id === localStorage.getItem('userid') ? (
-          <a className="favheader" href={`/Favorite/${id}`}>
+          <a className="favheader" href={`/edit/favorite/${id}`}>
             Manage Favorites
           </a>
         ) : null}
       </div>
+      {user&&
       <div className="topbarprofile">
-        <img
+<img
           className="photouser"
-          src="https://iptc.org/wp-content/uploads/2018/05/avatar-anonymous-300x300.png"
-          alt="Han Solo"
+          src={user.avatar}
+          alt=""
         />
       </div>
+}
+      {user&&
       <div className="profile">
-        <p className="username">{username}</p>
-      </div>
+        <p className="username">{user.username}</p>
+      </div>}
       <br />
       <br />
       <br />
-
-      <p className="userWatchlist">{username}'s Watchlist</p>
+      {user&&
+      <p className="userWatchlist">{user.username}'s Watchlist</p>}
       <br />
       <div className="watchlist">
         {watchlist &&
@@ -114,8 +124,8 @@ function Profile() {
       <br />
       <br />
       <br />
-
-      <p className="userWatchlist">{username}'s Favorite movies</p>
+      {user&&
+      <p className="userWatchlist">{user.username}'s Favorite movies</p>}
       <br />
       <div className="watchlist">
         {Favorites &&

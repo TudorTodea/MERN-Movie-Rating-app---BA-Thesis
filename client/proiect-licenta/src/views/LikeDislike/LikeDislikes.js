@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip } from 'antd';
 import axios from 'axios';
 import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
-
+import './LikeDislike.css'
 function LikeDislikes(props) {
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const authCtx = useContext(AuthContext);
@@ -15,7 +14,7 @@ function LikeDislikes(props) {
   const [DislikeAction, setDislikeAction] = useState(null);
   let variable = {};
 
-  variable = { reviewId: props.reviewId, userId: props.userId };
+  variable = { reviewId: props.reviewId, userId: props.currentUserId };
 
   useEffect(() => {
     instance.post('/api/likedislike/getLikes', variable).then((response) => {
@@ -23,7 +22,7 @@ function LikeDislikes(props) {
         setLikes(response.data.likes.length);
 
         response.data.likes.map((like) => {
-          if (like.userId === props.userId) {
+          if (like.userId === props.currentUserId) {
             setLikeAction('liked');
           }
         });
@@ -37,7 +36,7 @@ function LikeDislikes(props) {
         setDislikes(response.data.dislikes.length);
 
         response.data.dislikes.map((dislike) => {
-          if (dislike.userId === props.userId) {
+          if (dislike.userId === props.currentUserId) {
             setDislikeAction('disliked');
           }
         });
@@ -110,21 +109,19 @@ function LikeDislikes(props) {
   };
 
   return (
-    <React.Fragment>
+    <div className='like-dislike-container'>
       <span key="comment-basic-like">
-        <Tooltip>
-          <LikeOutlined name="like" onClick={onLike} />
-        </Tooltip>
+        <LikeOutlined name="like" onClick={onLike} />
+
         <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Likes}</span>
       </span>
       &nbsp;&nbsp;&nbsp;&nbsp;
       <span key="comment-basic-dislike">
-        <Tooltip>
-          <DislikeOutlined name="dislike" onClick={onDislike} />
-        </Tooltip>
+        <DislikeOutlined name="dislike" onClick={onDislike} />
+
         <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Dislikes}</span>
       </span>
-    </React.Fragment>
+    </div>
   );
 }
 

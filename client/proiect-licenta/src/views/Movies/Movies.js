@@ -56,7 +56,6 @@ function Movies() {
       setMovieGenre([...movieGenre, ...data.results]);
       setCurrentPage(data.page);
     } else {
-      console.log(data.results);
       setMovies([...Movies, ...data.results]);
       setCurrentPage(data.page);
     }
@@ -80,21 +79,15 @@ function Movies() {
     setMovieGenre([]);
     setGenreId(val.id);
   };
+
   const handleScroll = () => {
-    const windowHeight =
-      'innerHeight' in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
+    console.log(window.innerHeight);
+    console.log(document.documentElement.offsetHeight);
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.offsetHeight;
+    console.log(docHeight);
     const windowBottom = windowHeight + window.pageYOffset;
+    console.log(windowBottom);
     if (windowBottom >= docHeight - 1) {
       console.log('clicked');
       buttonRef.current.click();
@@ -102,7 +95,6 @@ function Movies() {
   };
   return (
     <div>
-      {console.log(movieGenre)}
       <div className="wrapper" style={{ width: '100%', margin: '0' }}></div>
 
       <div style={{ width: '85%', margin: '1rem auto' }}>

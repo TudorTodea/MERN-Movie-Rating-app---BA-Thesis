@@ -13,8 +13,23 @@ function UpcomingMovies() {
   const [Movies, setMovies] = useState([]);
   const [CurrentPage, setCurrentPage] = useState(1);
   const buttonRef = useRef(null);
+  const currentDate = useRef(null);
+  const futureDate = useRef(null);
+
+  const getReversedDate = (str) => {
+    const reversedCurrentDate = str.split(`-`).reverse().join('-');
+    return reversedCurrentDate;
+  }
+
   useEffect(() => {
-    const endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&page=1&primary_release_date.gte=2022-07-04&primary_release_date.lte=2022-08-07`;
+    const current = new Date();
+    currentDate.current = getReversedDate(`${current.getDate()}-${current.getMonth() + 1}-${current.getFullYear()}`);
+    if ((current.getMonth() + 2) > 12) {
+      futureDate.current = getReversedDate(`${current.getDate()}-01-${current.getFullYear() + 1}`);
+    } else {
+      futureDate.current = getReversedDate(`${current.getDate()}-${current.getMonth() + 2}-${current.getFullYear()}`);
+    }
+    const endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&page=1&primary_release_date.gte=${currentDate.current}&primary_release_date.lte=${futureDate.current}`;
     fetchMovies(endpoint);
 
     window.addEventListener('scroll', handleScroll);
@@ -31,27 +46,15 @@ function UpcomingMovies() {
     let endpoint = '';
     console.log('CurrentPage', CurrentPage);
 
-    endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&page=${
-      CurrentPage + 1
-    }&primary_release_date.gte=2022-06-17&primary_release_date.lte=2022-07-07`;
+    endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1
+      }&primary_release_date.gte=${currentDate.current}&primary_release_date.lte=${futureDate.current}`;
 
     fetchMovies(endpoint);
   };
 
   const handleScroll = () => {
-    const windowHeight =
-      'innerHeight' in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.offsetHeight;
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight - 1) {
       console.log('clicked');

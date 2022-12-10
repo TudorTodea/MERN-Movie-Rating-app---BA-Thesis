@@ -1,13 +1,22 @@
 .username {
-  margin-left: 645px;
+  margin-left: 658px;
   margin-top: 10px;
 }
 
 .profile {
   display: flex;
 }
+.reset-avatar-btn{
+  height: 30px;
+  width: 120px;
+}
 .photouser {
-  width: 150px;
+
+  width: 100px;
+  margin-left: 7%;
+  align-items: center;
+  justify-content: center;
+  
 }
 .seemore {
   margin-left: 150px;
@@ -17,6 +26,7 @@
   font-size: 30px;
 }
 .topbarprofile {
+  display: flex;
   margin-left: 590px;
 }
 .favheader {
