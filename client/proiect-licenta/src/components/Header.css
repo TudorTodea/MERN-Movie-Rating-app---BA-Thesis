@@ -101,6 +101,7 @@
   cursor: pointer;
   overflow: hidden;
   outline: none;
+  font-weight: bold;
 }
 
 .menu_left {

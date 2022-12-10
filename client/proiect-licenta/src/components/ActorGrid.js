@@ -8,7 +8,7 @@ function ActorGrid(props) {
 
   return (
     <React.Fragment>
-      <span className="actorelems">
+      <span style={{ paddingLeft: '40px' }} className="actorelems">
         <img
           style={{ width: '10%', height: '10%', borderRadius: '50%' }}
           alt={characterName}

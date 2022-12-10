@@ -3,5 +3,10 @@
 }
 
 .actorelems {
-  width: 100px;
+  width: 300px;
+}
+
+.actorline {
+  display: inline-block;
+  max-width: 500px;
 }

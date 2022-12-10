@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
 import './Favorite.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CloseOutlined } from '@ant-design/icons';
+
 
 const { Title } = Typography;
 
@@ -86,18 +86,6 @@ function FavoritePage() {
                 )}
 
                 <p className="ovw">{favorite.movieOverview}</p>
-
-                <span>
-                  {id === localStorage.getItem('userid') ? (
-                    <CloseOutlined
-                      className="removebtn"
-                      style={{ alignItems: 'center' }}
-                      onClick={() =>
-                        onClickDelete(favorite.movieId, favorite.userFrom)
-                      }
-                    />
-                  ) : null}
-                </span>
               </div>
             </tr>
           );

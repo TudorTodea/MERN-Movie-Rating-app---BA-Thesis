@@ -3,7 +3,6 @@ import { Typography } from 'antd';
 import axios from 'axios';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config/Config';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CloseOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -31,23 +30,6 @@ function WatchlistPage() {
       });
   };
 
-  const onClickDelete = (movieId, userFrom) => {
-    const variables = {
-      movieId: movieId,
-      userFrom: userFrom,
-    };
-
-    instance
-      .post('/api/watchlist/removeFromWatchlist', variables)
-      .then((response) => {
-        if (response.data.success) {
-          fetchWatchlist();
-        } else {
-          alert('Failed to Remove From Watchlist');
-        }
-      });
-  };
-
   return (
     <div className="wrapper">
       <div style={{ width: '85%', margin: '3rem auto' }}>
@@ -69,6 +51,7 @@ function WatchlistPage() {
               >
                 {item.moviePoster ? (
                   <img
+                    alt="poster"
                     onClick={() => {
                       navigate(`/movie/${item.movieId}`);
                     }}
@@ -80,16 +63,6 @@ function WatchlistPage() {
                 )}
 
                 {<p className="ovw">{item.movieOverview}</p>}
-
-                <span>
-                  {id === localStorage.getItem('userid') ? (
-                    <CloseOutlined
-                      className="removebtn"
-                      style={{ alignItems: 'center' }}
-                      onClick={() => onClickDelete(item.movieId, item.userFrom)}
-                    />
-                  ) : null}
-                </span>
               </div>
             </tr>
           );

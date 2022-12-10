@@ -1,0 +1,45 @@
+
+
+.comment-container:after {
+    content: "";
+    display: table;
+    clear: both;
+    max-width: 1200px;
+    
+  }
+  .comment-card{
+    box-shadow: 0 4px 8px 0 rgba(222, 220, 220, 0.1);
+    transition: 0.3s;
+    height: 100px;
+  }
+  .text-comment{
+    padding-left: 30px;
+    word-wrap: break-word;
+    margin-top: 50px;
+    float: right;
+  width: 90%;
+  max-width: 1200px;
+   
+  
+  }
+
+  .text-paragraph{
+    padding-top:10px;
+    padding-left:10px
+  }
+
+  .img-comment{
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.315);
+    transition: 0.3s;
+    float: left;
+    width: 10%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(55, 54, 54);
+    border-radius: 10px;
+  }
+
+  .comment-username{
+    padding-top: 10px;
+    padding-left: 25px;
+  }

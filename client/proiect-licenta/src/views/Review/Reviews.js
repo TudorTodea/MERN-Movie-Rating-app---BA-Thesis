@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Button, Input, Typography } from 'antd';
 import axios from 'axios';
 import SingleReview from './SingleReview';
-
+import './Review.css'
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
+import { IoMdSend } from "react-icons/io"
 const { TextArea } = Input;
 const { Title } = Typography;
 function Reviews(props) {
@@ -30,7 +31,6 @@ function Reviews(props) {
       writer: userid,
       postId: props.postId,
     };
-    console.log(variables);
 
     instance.post('/api/review/saveReview', variables).then((response) => {
       if (response.data.success) {
@@ -45,20 +45,20 @@ function Reviews(props) {
   return (
     <div>
       <br />
-      <Title level={3}> Write a review for {props.movieTitle} </Title>
+      <h3> Write a review for {props.movieTitle} </h3>
       <hr />
-
-      {props.CommentLists &&
-        props.CommentLists.map((comment, index) => (
-          <React.Fragment>
-            <SingleReview
-              comment={comment}
-              postId={props.postId}
-              refreshFunction={props.refreshFunction}
-            />
-          </React.Fragment>
-        ))}
-
+      <div >
+        {props.CommentLists &&
+          props.CommentLists.map((comment, index) => (
+            <React.Fragment>
+              <SingleReview
+                comment={comment}
+                postId={props.postId}
+                refreshFunction={props.refreshFunction}
+              />
+            </React.Fragment>
+          ))}
+      </div>
       {props.CommentLists && props.CommentLists.length === 0 && (
         <div
           style={{
@@ -72,17 +72,17 @@ function Reviews(props) {
         </div>
       )}
 
-      {/* Root Comment Form */}
       <form style={{ display: 'flex' }} onSubmit={onSubmit}>
-        <TextArea
+        <textarea
+          className='text-areaStyling'
           style={{ width: '100%', borderRadius: '5px' }}
           onChange={handleChange}
           value={Comment}
-          placeholder="write some comments"
+          placeholder="Write your review"
         />
         <br />
-        <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>
-          Submit
+        <Button className='button-83' onClick={onSubmit}>
+          <IoMdSend size={40} />
         </Button>
       </form>
     </div>

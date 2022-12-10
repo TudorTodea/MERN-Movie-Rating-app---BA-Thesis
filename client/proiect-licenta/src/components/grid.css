@@ -1,5 +1,5 @@
 span {
-  padding-left: 40px;
+  padding-left: 0px;
 }
 
 .card:hover {
@@ -78,7 +78,6 @@ h4 {
   font-size: 20px;
 }
 span {
-  font-size: 1vw;
 }
 p {
   font-size: 1vw;

@@ -17,9 +17,10 @@ import Favorite from '../Favorite/Favorite';
 import Watchlist from '../Watchlist/Watchlist';
 import Reviews from '../Review/Reviews';
 import axios from 'axios';
-import Rating from '../Ratings/Rating';
 import { Row } from 'antd';
 import ActorGrid from '../../components/ActorGrid';
+import RatingComp from '../Ratings/RatingComp';
+
 
 function MovieDetail(props) {
   const { movieId } = useParams();
@@ -45,7 +46,6 @@ function MovieDetail(props) {
     fetchYoutubeLink(endpointForYoutubeVideo);
     fetchCast(endpointForCast);
     instance.post('/api/review/getReviews', movieVariable).then((response) => {
-      console.log(response);
       if (response.data.success) {
         setCommentLists(response.data.reviews);
       } else {
@@ -72,7 +72,6 @@ function MovieDetail(props) {
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
-        console.log(result);
         setMovie(result);
         setReleaseDate(result.release_date);
       });
@@ -89,6 +88,7 @@ function MovieDetail(props) {
   };
 
   return (
+    
     <div
       style={{
         width: '1550px',
@@ -99,7 +99,15 @@ function MovieDetail(props) {
 
       <div className="title2">
         {Movie.runtime} min
-        <span>{releasedate}</span>
+        <span className="span2">{releasedate}</span>
+        <span>
+            {authCtx.isLoggedIn && (<Favorite
+              movieInfo={Movie}
+              movieId={movieId}
+              userFrom={localStorage.getItem('userid')}
+            />
+)}
+          </span>
         <span>
           {authCtx.isLoggedIn && (
             <Watchlist
@@ -110,8 +118,8 @@ function MovieDetail(props) {
           )}
         </span>
       </div>
-      <div className="movie-card1">
-        <div className="container1">
+
+     
           <div className="hero1">
             <div className="imgover">
               {
@@ -120,38 +128,8 @@ function MovieDetail(props) {
                 />
               }
             </div>
-          </div>
-          <img
-            src={
-              Movie.poster_path
-                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${Movie.poster_path}`
-                : null
-            }
-            alt="cover"
-            className="cover"
-          />
-        </div>
-
-        <div className="description">
-          <div>
-            <span className="columnTrailer">
-              <div>
-                {trailer && trailer[0] && (
-                  <iframe
-                    width="550"
-                    height="250"
-                    src={`https://www.youtube.com/embed/${trailer[0].key}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen={true}
-                    title="Embedded youtube"
-                  />
-                )}
-              </div>
-            </span>
-          </div>
-
-          <div className="columngenre">
+            </div>
+            <div className="columngenre">
             {Movie.genres && Movie.genres[0] && (
               <span className="tag">
                 {Movie.genres[0].name === 'Science Fiction'
@@ -174,22 +152,48 @@ function MovieDetail(props) {
               </span>
             )}
           </div>
-
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Favorite
-              movieInfo={Movie}
-              movieId={movieId}
-              userFrom={localStorage.getItem('userid')}
-            />
+          
+          <div className='midcontainer'>
+          <img
+            src={
+              Movie.poster_path
+                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${Movie.poster_path}`
+                : null
+            }
+            alt="cover"
+            className="cover"
+          />
+<div className="description">
+          <div>
+            <span className="columnTrailer">
+              <div >
+                {trailer && trailer[0] && (
+                  <iframe
+                    width="550"
+                    height="250"
+                    src={`https://www.youtube.com/embed/${trailer[0].key}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen={true}
+                    title="Embedded youtube"
+                  />
+                )}
+              </div>
+            </span>
           </div>
-          <div className="boss">
-            <Rating
+          </div>
+
+         
+            <RatingComp
+              imdbId={Movie.imdb_id}
+              rateAvg={Movie.vote_average}
               movieId={movieId}
               userFrom={localStorage.getItem('userid')}
             />
+         
           </div>
           <div className="column2">
-            <p className="p2">{Movie.overview}</p>
+            <p className="moviedescription">{Movie.overview}</p>
 
             <hr />
 
@@ -237,25 +241,29 @@ function MovieDetail(props) {
                   (cast, index) =>
                     index < 15 &&
                     cast.profile_path && (
-                      <ActorGrid
-                        actor
-                        image={cast.profile_path}
-                        name={cast.name}
-                      />
+                      <span style={{ marginTop: '50px' }}>
+                        <ActorGrid
+                          actor
+                          image={cast.profile_path}
+                          name={cast.name}
+                        />
+                      </span>
                     )
                 )}
               </Row>
             )}
-          </div>
-          <Reviews
+         <Reviews
             movieTitle={Movie.original_title}
             CommentLists={CommentLists}
             postId={movieId}
             refreshFunction={updateComment}
           />
-        </div>
-      </div>
-    </div>
+              </div>
+              
+     </div>
+
+    
+   
   );
 }
 

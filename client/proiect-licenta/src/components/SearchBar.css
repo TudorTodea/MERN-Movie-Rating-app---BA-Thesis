@@ -33,6 +33,7 @@
   background: transparent;
   border-left: 1px solid #fff;
   border-radius: 0 3px 3px 0;
+  font-weight: bold;
 }
 .buttonssb:hover {
   background: #fff;

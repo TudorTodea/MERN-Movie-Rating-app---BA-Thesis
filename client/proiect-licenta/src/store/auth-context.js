@@ -4,8 +4,8 @@ const AuthContext = React.createContext({
   token: '',
   username: '',
   isLoggedIn: false,
-  login: (token) => {},
-  logout: () => {},
+  login: (token) => { },
+  logout: () => { },
 });
 const calculateRemainingTim = (expirationTime) => {
   const currentTime = new Date().getTime();

@@ -50,13 +50,13 @@ function Header() {
             />
           </div>
           <div className="menu__logo">
-            <a style={{ color: 'white', fontWeight: 'bolder' }} href="/Movies">
+            <a style={{ color: 'white', fontWeight: 'bold' }} href="/Movies">
               Latest Movies
             </a>
           </div>
           <div className="menu__logo">
             <a
-              style={{ color: 'white', fontWeight: 'bolder' }}
+              style={{ color: 'white', fontWeight: 'bold' }}
               href="/upcoming"
             >
               Upcoming Movies

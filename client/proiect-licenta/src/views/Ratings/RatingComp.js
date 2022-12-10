@@ -18,13 +18,13 @@ function RatingComp(props) {
   const [rating, setRating] = useState(0);
   const [Rated, setRated] = useState(false);
   const [rvalue, setRvalue] = useState(0);
-  const [nrRating,setNrRatings]=useState(0);
+  const [nrRating, setNrRatings] = useState(0);
 
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
       flexDirection: "column",
-  
+
       "& > * + *": {
         marginTop: theme.spacing(1)
       }
@@ -68,7 +68,6 @@ function RatingComp(props) {
     instance.post('/api/rating/upvote', variables2).then((response) => {
       if (response.data.success) {
         setRated(true);
-        console.log(response.data.ratingResult);
         setRating(response.data.ratingResult.rating);
       } else {
         alert('Failed ');
@@ -78,9 +77,9 @@ function RatingComp(props) {
   };
 
   useEffect(() => {
-    instance.post('/api/rating/getnrratings',variables).then((response)=>{
+    instance.post('/api/rating/getnrratings', variables).then((response) => {
       if (response.data.success) {
-       setNrRatings(response.data.count)
+        setNrRatings(response.data.count)
       } else {
         alert('Failed ');
       }
@@ -134,12 +133,12 @@ function RatingComp(props) {
   return (
     <div>
       <div className="starrating">
-        <p style={{ fontWeight:'bold', marginLeft:'41%' }}>SCORE</p>
-      <div className="rating">
+        <p style={{ fontWeight: 'bold', marginLeft: '41%' }}>SCORE</p>
+        <div className="rating">
           {finalRating === 'NaN' ? 'N/A' : finalRating}
         </div>
-        <span className={classes.root} style={{ marginLeft:'75px' }}>
-          <Rating 
+        <span className={classes.root} style={{ marginLeft: '75px' }}>
+          <Rating
             defaultValue={3}
             value={rvalue}
             size="large"
@@ -151,21 +150,21 @@ function RatingComp(props) {
             }}
           />
         </span>
-        <div style={{ width:'200px', paddingLeft:'120px', paddingTop:'5%' }}>
-       {nrRating} users
+        <div style={{ width: '200px', paddingLeft: '120px', paddingTop: '5%' }}>
+          {nrRating} users
         </div>
-        <div style={{ width:'200px', paddingLeft:'125px', paddingTop:'20%' }}>
+        <div style={{ width: '200px', paddingLeft: '125px', paddingTop: '20%' }}>
           <a href={`//www.imdb.com/title/${props.imdbId}/`}>
-        <SiImdb color='yellow' size={40}/>
-        </a>
+            <SiImdb color='yellow' size={40} />
+          </a>
         </div>
-        <div style={{ paddingLeft:'80px' }}>
-        <AiFillStar style={{ paddingTop:'10px' }} color='yellow' size={30}/>
-        {props.rateAvg&&
-        <span style={{ fontSize:'30px' }}>{props.rateAvg.toFixed(1)}/10</span>}
+        <div style={{ paddingLeft: '80px' }}>
+          <AiFillStar style={{ paddingTop: '10px' }} color='yellow' size={30} />
+          {props.rateAvg &&
+            <span style={{ fontSize: '30px' }}>{props.rateAvg.toFixed(1)}/10</span>}
         </div>
         <br />
-       
+
       </div>
     </div>
   );

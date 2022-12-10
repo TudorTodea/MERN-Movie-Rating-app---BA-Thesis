@@ -13,9 +13,11 @@ function SearchResults(props) {
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
-    let endpointForSearchInfo = `${API_URL}search/movie?api_key=${API_KEY}&query=${param}`;
+    if (param) {
+      let endpointForSearchInfo = `${API_URL}search/movie?api_key=${API_KEY}&query=${param}`;
 
-    fetchSearchInfo(endpointForSearchInfo);
+      fetchSearchInfo(endpointForSearchInfo);
+    }
   }, [param]);
   const fetchSearchInfo = async (endpoint) => {
     fetch(endpoint)
@@ -23,12 +25,10 @@ function SearchResults(props) {
       .then((result) => {
         setInfo([result.results.filter((info) => info.backdrop_path != null)]);
       });
-    console.log(info);
   };
 
   return (
     <div className="wrapper">
-      {info && info[0] && info[0][0] && info[0][0].title && console.log('')}
       {info && info[0] && info[0][0] && info[0][0].title != 'UNdefined' && (
         <Row gutter={[32, 32]}>
           {info[0].map((movie, index) => (

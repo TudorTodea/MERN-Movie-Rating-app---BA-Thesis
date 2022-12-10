@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
-
 import '../Details/MovieDetail.css';
+import { AiFillEye } from "react-icons/ai";
+import { AiFillEyeInvisible } from "react-icons/ai";
+import './Watchlist.css'
 function Watchlist(props) {
   const authCtx = useContext(AuthContext);
   const movieId = props.movieId;
@@ -80,10 +81,10 @@ function Watchlist(props) {
 
   return (
     <>
-      <button className="buttonWl" onClick={onClickWatchlist}>
-        {' '}
-        {!Watchlisted ? 'Add to Watchlist' : 'Remove from Watchlist'}{' '}
-      </button>
+    {
+      Watchlisted? <AiFillEyeInvisible className='watchlistbtn'  color='white' size={40} onClick={onClickWatchlist}/>:
+      <AiFillEye color='white' className='watchlistbtn' size={40} onClick={onClickWatchlist}/>
+    }
     </>
   );
 }

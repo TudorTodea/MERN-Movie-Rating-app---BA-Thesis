@@ -62,15 +62,12 @@ function Movies() {
   };
   const loadMoreItems = () => {
     let endpoint = '';
-    console.log('CurrentPage', CurrentPage);
     if (!genreId) {
-      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
-        CurrentPage + 1
-      }`;
+      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1
+        }`;
     } else {
-      endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&&with_genres=${genreId}&page=${
-        CurrentPage + 1
-      }`;
+      endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&&with_genres=${genreId}&page=${CurrentPage + 1
+        }`;
     }
     fetchMovies(endpoint);
   };
@@ -81,15 +78,10 @@ function Movies() {
   };
 
   const handleScroll = () => {
-    console.log(window.innerHeight);
-    console.log(document.documentElement.offsetHeight);
     const windowHeight = window.innerHeight;
     const docHeight = document.documentElement.offsetHeight;
-    console.log(docHeight);
     const windowBottom = windowHeight + window.pageYOffset;
-    console.log(windowBottom);
     if (windowBottom >= docHeight - 1) {
-      console.log('clicked');
       buttonRef.current.click();
     }
   };

@@ -44,7 +44,6 @@ function UpcomingMovies() {
   };
   const loadMoreItems = () => {
     let endpoint = '';
-    console.log('CurrentPage', CurrentPage);
 
     endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1
       }&primary_release_date.gte=${currentDate.current}&primary_release_date.lte=${futureDate.current}`;
@@ -57,7 +56,6 @@ function UpcomingMovies() {
     const docHeight = document.documentElement.offsetHeight;
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight - 1) {
-      console.log('clicked');
       buttonRef.current.click();
     }
   };

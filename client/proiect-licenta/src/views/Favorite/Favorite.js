@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
-
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
+import './Favorite.css'
 function Favorite(props) {
   const authCtx = useContext(AuthContext);
   const movieId = props.movieId;
@@ -78,10 +80,12 @@ function Favorite(props) {
 
   return (
     <>
-      <button className="buttonFav" onClick={onClickFavorite}>
-        {' '}
-        {!Favorited ? 'Add to Favorites' : 'Remove from favorites'}{' '}
-      </button>
+      {Favorited ?
+        <AiFillHeart className='favoritebtn' size={40} onClick={onClickFavorite} color='red' /> :
+        <AiOutlineHeart className='favoritebtn' onClick={onClickFavorite} size={40} color='red' />
+
+      }
+
     </>
   );
 }
