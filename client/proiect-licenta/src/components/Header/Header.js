@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import './Header.css';
 import { useContext } from 'react';
-import AuthContext from '../store/auth-context';
+import AuthContext from '../../store/auth-context';
 import { useNavigate } from 'react-router-dom';
 import './SearchBar.css';
-import SearchResults from './Search/SearchResults';
+import SearchResults from '../Search/SearchResults';
 import { HomeOutlined } from '@ant-design/icons';
 
 function Header() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IMAGE_BASE_URL } from '../config/Config';
+import { IMAGE_BASE_URL } from '../../config/Config';
 import './ActorGrid.css';
 function ActorGrid(props) {
   let { image, characterName } = props;

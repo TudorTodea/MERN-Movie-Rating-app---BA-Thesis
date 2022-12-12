@@ -1,5 +1,5 @@
 import React from 'react';
-import '../components/grid.css';
+import './grid.css';
 
 function GridCard(props) {
   let { image, movieId, movieName, text, rdate, genresarr } = props;

@@ -10,7 +10,8 @@
   .comment-card{
     box-shadow: 0 4px 8px 0 rgba(222, 220, 220, 0.1);
     transition: 0.3s;
-    height: 100px;
+    overflow-y: auto;
+    min-height: 150px;
   }
   .text-comment{
     padding-left: 30px;
@@ -33,10 +34,11 @@
     transition: 0.3s;
     float: left;
     width: 10%;
-    margin-top: 20px;
+    margin-top: 50px;
     margin-bottom: 20px;
     background-color: rgb(55, 54, 54);
     border-radius: 10px;
+    height: 150px;
   }
 
   .comment-username{

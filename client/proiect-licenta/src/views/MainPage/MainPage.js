@@ -1,8 +1,7 @@
-import { API_KEY, API_URL, IMAGE_BASE_URL, IMAGE_SIZE } from '../config/Config';
+import { API_KEY, API_URL, IMAGE_BASE_URL, IMAGE_SIZE } from '../../config/Config';
 import React, { useEffect, useRef, useState } from 'react';
 import SimpleImageSlider from 'react-simple-image-slider';
-
-import '../views/poster.css';
+import './poster.css';
 
 function MainPage() {
   const [update, setUpdate] = useState(false)

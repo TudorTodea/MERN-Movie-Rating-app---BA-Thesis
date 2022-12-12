@@ -6,7 +6,7 @@ function SearchGrid(props) {
 
   return (
     <React.Fragment>
-      <span style={{ paddingLeft: '40px' }} className="gridelems">
+      <span className="gridelems">
         <a href={`/movie/${movieId}`}>
           <img
             style={{ width: '15%', height: '15%' }}

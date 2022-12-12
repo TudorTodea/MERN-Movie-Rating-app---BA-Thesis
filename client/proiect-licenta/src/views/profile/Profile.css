@@ -11,12 +11,11 @@
   width: 120px;
 }
 .photouser {
-
+  display: flex;
   width: 100px;
   margin-left: 7%;
-  align-items: center;
   justify-content: center;
-  
+  height: 100px;
 }
 .seemore {
   margin-left: 150px;

@@ -1,10 +1,10 @@
 import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import MainPage from './views/MainPage';
+import MainPage from './views/MainPage/MainPage';
 import Movies from './views/Movies/Movies';
 import MovieDetail from './views/Details/MovieDetail';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Auth from './Auth';
 import SearchResults from './components/Search/SearchResults';
 import Profile from './views/profile/Profile';

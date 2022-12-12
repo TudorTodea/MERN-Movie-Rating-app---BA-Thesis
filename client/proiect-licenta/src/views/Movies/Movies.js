@@ -7,7 +7,7 @@ import {
 import React, { useEffect, useState, useRef } from 'react';
 import { Typography, Row } from 'antd';
 import './Movies.css';
-import GridCard from '../../components/GridCard';
+import GridCard from '../../components/Grids/GridCard';
 const { Title } = Typography;
 
 function Movies() {

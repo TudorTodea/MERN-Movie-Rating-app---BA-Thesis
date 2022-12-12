@@ -6,7 +6,7 @@ import {
 } from '../../config/Config';
 import React, { useEffect, useState, useRef } from 'react';
 import { Typography, Row } from 'antd';
-import GridCard from '../../components/GridCard';
+import GridCard from '../../components/Grids/GridCard';
 const { Title } = Typography;
 
 function UpcomingMovies() {
