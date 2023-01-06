@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
@@ -6,7 +6,6 @@ import './Rating.css';
 import { Rating } from '@mui/material';
 import { SiImdb } from "react-icons/si";
 import { AiFillStar } from "react-icons/ai";
-import { makeStyles } from "@material-ui/core/styles";
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 
 function RatingComp(props) {
@@ -19,21 +18,6 @@ function RatingComp(props) {
   const [Rated, setRated] = useState(false);
   const [rvalue, setRvalue] = useState(0);
   const [nrRating, setNrRatings] = useState(0);
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-      flexDirection: "column",
-
-      "& > * + *": {
-        marginTop: theme.spacing(1)
-      }
-    },
-    emptyStar: {
-      color: "orange"
-    }
-  }));
-  const classes = useStyles();
   const variables = {
     movieId: movieId,
     user: userFrom,
@@ -137,13 +121,13 @@ function RatingComp(props) {
         <div className="rating">
           {finalRating === 'NaN' ? 'N/A' : finalRating}
         </div>
-        <span className={classes.root} style={{ marginLeft: '75px' }}>
+        <span style={{ marginLeft: '75px' }}>
           <Rating
             defaultValue={3}
             value={rvalue}
             size="large"
             emptyIcon={
-              <StarBorderOutlinedIcon fontSize="inherit" className={classes.emptyStar} />
+              <StarBorderOutlinedIcon fontSize="inherit" />
             }
             onChange={(newValue) => {
               onClickRating(newValue);
