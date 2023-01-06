@@ -77,14 +77,15 @@ function Watchlist(props) {
         alert('Failed to get Favorite Information');
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-    {
-      Watchlisted? <AiFillEyeInvisible className='watchlistbtn'  color='white' size={40} onClick={onClickWatchlist}/>:
-      <AiFillEye color='white' className='watchlistbtn' size={40} onClick={onClickWatchlist}/>
-    }
+      {
+        Watchlisted ? <AiFillEyeInvisible className='watchlistbtn' color='white' size={40} onClick={onClickWatchlist} /> :
+          <AiFillEye color='white' className='watchlistbtn' size={40} onClick={onClickWatchlist} />
+      }
     </>
   );
 }

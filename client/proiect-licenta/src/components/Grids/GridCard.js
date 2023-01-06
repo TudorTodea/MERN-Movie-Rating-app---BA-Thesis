@@ -32,7 +32,7 @@ function GridCard(props) {
       <div className="container">
         <div className="lol">
           <a href={`/movie/${movieId}`}>
-            <img style={{ width: '200px', height: '100%' }} src={image} />
+            <img alt="gridImg" style={{ width: '200px', height: '100%' }} src={image} />
           </a>
         </div>
         <div className="colum">

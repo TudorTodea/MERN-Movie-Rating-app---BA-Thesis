@@ -1,6 +1,7 @@
+
 import axios from 'axios';
 import React from 'react';
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import SearchGrid from '../../components/Search/SearchGrid';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config/Config';
@@ -10,7 +11,6 @@ function Profile() {
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const [watchlist, setWatchlist] = useState([]);
   const [Favorites, setFavorites] = useState([]);
-  const [update, setUpdate] = useState(false);
   const [user, setUser] = useState(null);
   const { id } = useParams();
   let variable = { userFrom: id };
@@ -20,6 +20,7 @@ function Profile() {
     fetchFavoredMovie();
     fetchUsername();
     fetchReviews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const fetchReviews = () => {
     instance.post('/api/review/getReviewsOfUser', variable).then((response) => {
@@ -61,15 +62,6 @@ function Profile() {
         }
       });
   };
-  const handlerAvatarChange=(e)=>{
-    e.preventDefault();
-    instance
-    .post('/api/auth/changeAvatar', variable)
-    .then((response) => {
-    setUpdate(!update)
-     
-    });
-  }
   return (
     <div className="wrapper">
       <div className="profileheader">
@@ -82,24 +74,24 @@ function Profile() {
           </a>
         ) : null}
       </div>
-      {user&&
-      <div className="topbarprofile">
-<img
-          className="photouser"
-          src={user.avatar}
-          alt=""
-        />
-      </div>
-}
-      {user&&
-      <div className="profile">
-        <p className="username">{user.username}</p>
-      </div>}
+      {user &&
+        <div className="topbarprofile">
+          <img
+            className="photouser"
+            src={user.avatar}
+            alt=""
+          />
+        </div>
+      }
+      {user &&
+        <div className="profile">
+          <p className="username">{user.username}</p>
+        </div>}
       <br />
       <br />
       <br />
-      {user&&
-      <p className="userWatchlist">{user.username}'s Watchlist</p>}
+      {user &&
+        <p className="userWatchlist">{user.username}'s Watchlist</p>}
       <br />
       <div className="watchlist">
         {watchlist &&
@@ -124,8 +116,8 @@ function Profile() {
       <br />
       <br />
       <br />
-      {user&&
-      <p className="userWatchlist">{user.username}'s Favorite movies</p>}
+      {user &&
+        <p className="userWatchlist">{user.username}'s Favorite movies</p>}
       <br />
       <div className="watchlist">
         {Favorites &&

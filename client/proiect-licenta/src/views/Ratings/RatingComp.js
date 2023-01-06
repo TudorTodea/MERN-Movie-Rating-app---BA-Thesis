@@ -97,6 +97,7 @@ function RatingComp(props) {
           alert('Failed to get Information');
         }
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rating]);
 
   useEffect(() => {
@@ -109,9 +110,11 @@ function RatingComp(props) {
           alert('Failed to get Information');
         }
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     setFinalRating(finalRating + rating);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rating]);
 
   return (
@@ -126,6 +129,14 @@ function RatingComp(props) {
             defaultValue={3}
             value={rvalue}
             size="large"
+            sx={{
+              '& .MuiRating-iconFilled': {
+                color: 'red',
+              },
+              '& .MuiRating-icon': {
+                color: 'red',
+              }
+            }}
             emptyIcon={
               <StarBorderOutlinedIcon fontSize="inherit" />
             }

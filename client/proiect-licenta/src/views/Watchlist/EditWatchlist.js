@@ -17,6 +17,7 @@ function EditWatchlist() {
 
   useEffect(() => {
     fetchWatchlist();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchWatchlist = () => {
@@ -70,6 +71,7 @@ function EditWatchlist() {
                 >
                   {item.moviePoster ? (
                     <img
+                      alt="poster"
                       onClick={() => {
                         navigate(`/movie/${item.movieId}`);
                       }}

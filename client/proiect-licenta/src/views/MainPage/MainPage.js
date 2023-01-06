@@ -4,7 +4,7 @@ import SimpleImageSlider from 'react-simple-image-slider';
 import './poster.css';
 
 function MainPage() {
-  const [update, setUpdate] = useState(false)
+  const [, setUpdate] = useState(false)
   const images = useRef([{ url: '' }]);
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
@@ -15,11 +15,11 @@ function MainPage() {
     const response = await fetch(endpoint);
     const data = await response.json();
 
-    data.results.map((each, index) => {
+    data.results.map((each, index) => (
       images.current[index] = {
         url: `${IMAGE_BASE_URL}${IMAGE_SIZE}` + each.backdrop_path
       }
-    });
+    ));
     setUpdate(true)
   };
 
@@ -39,7 +39,7 @@ function MainPage() {
             <div className="hero__bg__image__container">
               <img
                 src="poster.jpg"
-                alt="BG hero image"
+                alt="BG hero"
                 className="hero__bg__image"
               />
             </div>

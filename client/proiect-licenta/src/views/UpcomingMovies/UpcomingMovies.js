@@ -23,16 +23,31 @@ function UpcomingMovies() {
 
   useEffect(() => {
     const current = new Date();
-    currentDate.current = getReversedDate(`${current.getDate()}-${current.getMonth() + 1}-${current.getFullYear()}`);
-    if ((current.getMonth() + 2) > 12) {
-      futureDate.current = getReversedDate(`${current.getDate()}-01-${current.getFullYear() + 1}`);
+    let currentMonth;
+    let futureMonth;
+    const currentDay = current.getDate() < 10 ? "0" + current.getDate() : current.getDate()
+    if (current.getMonth() < 1) {
+      currentMonth = current.getMonth() + 1
+      futureMonth = current.getMonth() + 2
+      currentMonth = "0" + currentMonth
+      futureMonth = "0" + futureMonth
     } else {
-      futureDate.current = getReversedDate(`${current.getDate()}-${current.getMonth() + 2}-${current.getFullYear()}`);
+      currentMonth = current.getMonth() < 10 ? "0" + current.getMonth() + 1 : current.getMonth() + 1
     }
+
+    currentDate.current = getReversedDate(`${currentDay}-${currentMonth}-${current.getFullYear()}`);
+    if ((current.getMonth() + 2) > 12) {
+      futureDate.current = getReversedDate(`${currentDay}-01-${current.getFullYear() + 1}`);
+    } else {
+      futureDate.current = getReversedDate(`${currentDay}-${futureMonth}-${current.getFullYear()}`);
+    }
+    console.log(currentDate.current)
+    console.log(futureDate.current)
     const endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&page=1&primary_release_date.gte=${currentDate.current}&primary_release_date.lte=${futureDate.current}`;
     fetchMovies(endpoint);
 
     window.addEventListener('scroll', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchMovies = async (endpoint) => {

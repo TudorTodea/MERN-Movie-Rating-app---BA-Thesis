@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import {Input } from 'antd';
+import { Input } from 'antd';
 import axios from 'axios';
-import { useContext } from 'react';
-import AuthContext from '../../store/auth-context';
 import './Review.css';
 import Comment from './Comment';
 const { TextArea } = Input;
 
 function SingleReview(props) {
-
-  const authCtx = useContext(AuthContext);
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const [CommentValue, setCommentValue] = useState('');
   const [user, setUser] = useState(null);
   const [CommentActive, setCommentActive] = useState(false);
   let variable = { username: props.comment.writer.username };
-  const isLoggedIn = authCtx.isLoggedIn;
 
   useEffect(() => {
     instance.post('/api/auth/getIdFromUsername', variable).then((response) => {
@@ -25,12 +20,13 @@ function SingleReview(props) {
         alert('Failed to get username');
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {
     setCommentValue(e.currentTarget.value);
   };
- 
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -50,26 +46,26 @@ function SingleReview(props) {
       }
     });
   };
- 
+
 
   return (
     <>
-{user&&
-      <Comment
-        review
-        reviewId={props.comment._id}
-        userId={user._id}
-        currentUserId={localStorage.getItem('userid')}
-        avatar={user.avatar}
-        author={props.comment.writer.username}
-        content={props.comment.content}
-       
-      />
-}
+      {user &&
+        <Comment
+          review
+          reviewId={props.comment._id}
+          userId={user._id}
+          currentUserId={localStorage.getItem('userid')}
+          avatar={user.avatar}
+          author={props.comment.writer.username}
+          content={props.comment.content}
+
+        />
+      }
       {CommentActive && (
-        <form  onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <TextArea
-            style={{ marginTop:'100px', width: '100%', borderRadius: '5px' }}
+            style={{ marginTop: '100px', width: '100%', borderRadius: '5px' }}
             onChange={handleChange}
             value={CommentValue}
             placeholder="write some comments"

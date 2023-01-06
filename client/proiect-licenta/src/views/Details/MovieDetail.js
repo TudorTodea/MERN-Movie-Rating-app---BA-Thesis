@@ -52,12 +52,14 @@ function MovieDetail(props) {
         alert('Failed to get comments Info');
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const fetchCast = async (endpoint) => {
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
         setCast(result.cast);
+        // eslint-disable-next-line
         result.crew.map((crew) => {
           if (crew.department === 'Directing') {
             setDirector(crew.name);

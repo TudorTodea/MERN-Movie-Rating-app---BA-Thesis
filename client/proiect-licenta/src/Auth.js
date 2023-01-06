@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from './store/auth-context';
@@ -166,7 +167,8 @@ const AuthForm = () => {
             </button>
           )}
           {isLoading && <p>Sending request...</p>}
-          <a type="button" className="buttont" onClick={switchAuthModeHandler}>
+
+          <a type="button" href='#' className="buttont" onClick={switchAuthModeHandler}>
             {isLogin ? 'Create new account' : 'Login with existing account'}
           </a>
         </div>

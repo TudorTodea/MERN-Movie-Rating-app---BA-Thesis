@@ -10,25 +10,26 @@ function WatchlistPage() {
   const navigate = useNavigate();
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const [watchlist, setWatchlist] = useState([]);
-
   const { id } = useParams();
   let variable = { userFrom: id };
 
   useEffect(() => {
+    const fetchWatchlist = () => {
+      instance
+        .post('/api/watchlist/getWatchlistedMovie', variable)
+        .then((response) => {
+          if (response.data.success) {
+            setWatchlist(response.data.watchlisted);
+          } else {
+            alert('Failed to get Watchlist');
+          }
+        });
+    };
     fetchWatchlist();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchWatchlist = () => {
-    instance
-      .post('/api/watchlist/getWatchlistedMovie', variable)
-      .then((response) => {
-        if (response.data.success) {
-          setWatchlist(response.data.watchlisted);
-        } else {
-          alert('Failed to get Watchlist');
-        }
-      });
-  };
+
 
   return (
     <div className="wrapper">

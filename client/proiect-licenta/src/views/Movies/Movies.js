@@ -43,10 +43,12 @@ function Movies() {
       fetchMovies(endpoint);
     }
     window.addEventListener('scroll', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     const endpoint = `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&page=1&with_genres=${genreId}`;
     fetchMovies(endpoint);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genreId]);
 
   const fetchMovies = async (endpoint) => {

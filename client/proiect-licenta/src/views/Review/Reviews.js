@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import { Button, Input, Typography } from 'antd';
+import { Button } from 'antd';
 import axios from 'axios';
 import SingleReview from './SingleReview';
 import './Review.css'
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
 import { IoMdSend } from "react-icons/io"
-const { TextArea } = Input;
-const { Title } = Typography;
 function Reviews(props) {
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const authCtx = useContext(AuthContext);
   const [Comment, setComment] = useState('');
   const isLoggedIn = authCtx.isLoggedIn;
-
+  console.log(props)
   const handleChange = (e) => {
     setComment(e.currentTarget.value);
   };

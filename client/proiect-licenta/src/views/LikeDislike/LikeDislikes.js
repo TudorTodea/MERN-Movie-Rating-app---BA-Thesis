@@ -20,7 +20,7 @@ function LikeDislikes(props) {
     instance.post('/api/likedislike/getLikes', variable).then((response) => {
       if (response.data.success) {
         setLikes(response.data.likes.length);
-
+        // eslint-disable-next-line
         response.data.likes.map((like) => {
           if (like.userId === props.currentUserId) {
             setLikeAction('liked');
@@ -34,7 +34,7 @@ function LikeDislikes(props) {
     instance.post('/api/likedislike/getDislikes', variable).then((response) => {
       if (response.data.success) {
         setDislikes(response.data.dislikes.length);
-
+        // eslint-disable-next-line
         response.data.dislikes.map((dislike) => {
           if (dislike.userId === props.currentUserId) {
             setDislikeAction('disliked');
@@ -44,6 +44,7 @@ function LikeDislikes(props) {
         alert('Failed to get dislikes');
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onLike = () => {

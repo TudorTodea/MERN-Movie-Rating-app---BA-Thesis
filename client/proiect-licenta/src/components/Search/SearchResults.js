@@ -29,7 +29,7 @@ function SearchResults(props) {
 
   return (
     <div className="wrapper">
-      {info && info[0] && info[0][0] && info[0][0].title != 'UNdefined' && (
+      {info && info[0] && info[0][0] && info[0][0].title !== 'UNdefined' && (
         <Row gutter={[32, 32]}>
           {info[0].map((movie, index) => (
             <React.Fragment key={index}>

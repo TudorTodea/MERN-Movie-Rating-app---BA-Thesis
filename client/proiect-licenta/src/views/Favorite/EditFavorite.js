@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Typography } from 'antd';
 import axios from 'axios';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config/Config';
-import { useContext } from 'react';
-import AuthContext from '../../store/auth-context';
 import './Favorite.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CloseOutlined } from '@ant-design/icons';
@@ -12,16 +10,15 @@ const { Title } = Typography;
 
 function EditFavorite() {
   const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const [Favorites, setFavorites] = useState([]);
-  const [Loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const { id } = useParams();
   let variable = { userFrom: id };
 
-  const isLoggedIn = authCtx.isLoggedIn;
   useEffect(() => {
     fetchFavoredMovie();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchFavoredMovie = () => {
@@ -76,6 +73,7 @@ function EditFavorite() {
                 >
                   {favorite.moviePoster ? (
                     <img
+                      alt="moviePoster"
                       onClick={() => {
                         navigate(`/movie/${favorite.movieId}`);
                       }}

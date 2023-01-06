@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Typography } from 'antd';
 import axios from 'axios';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config/Config';
-import { useContext } from 'react';
-import AuthContext from '../../store/auth-context';
 import './Favorite.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -12,16 +10,15 @@ const { Title } = Typography;
 
 function FavoritePage() {
   const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
+
   const instance = axios.create({ baseURL: 'http://localhost:5000' });
   const [Favorites, setFavorites] = useState([]);
-  const [Loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const { id } = useParams();
   let variable = { userFrom: id };
-
-  const isLoggedIn = authCtx.isLoggedIn;
   useEffect(() => {
     fetchFavoredMovie();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchFavoredMovie = () => {
@@ -37,22 +34,6 @@ function FavoritePage() {
       });
   };
 
-  const onClickDelete = (movieId, userFrom) => {
-    const variables = {
-      movieId: movieId,
-      userFrom: userFrom,
-    };
-
-    instance
-      .post('/api/favorite/removeFromFavorite', variables)
-      .then((response) => {
-        if (response.data.success) {
-          fetchFavoredMovie();
-        } else {
-          alert('Failed to Remove From Favorites');
-        }
-      });
-  };
 
   return (
     <div className="wrapper">
@@ -75,6 +56,7 @@ function FavoritePage() {
               >
                 {favorite.moviePoster ? (
                   <img
+                    alt="moviePoster"
                     onClick={() => {
                       navigate(`/movie/${favorite.movieId}`);
                     }}
